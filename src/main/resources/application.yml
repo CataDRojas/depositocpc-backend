@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: depositocpc-backend
+  profiles:
+    default: local
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+jwt:
+  expiracion-minutos: 480
+
+patio:
+  altura-maxima-apilamiento: 3

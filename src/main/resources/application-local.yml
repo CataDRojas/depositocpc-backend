@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/depositocpc
+    username: depositocpc_user
+    password: changeme_local
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+
+jwt:
+  # Solo para desarrollo local. En producción se exige la variable de entorno JWT_SECRET.
+  secret: ${JWT_SECRET:clave-local-de-desarrollo-cambiar-en-produccion-min-32-bytes!!}

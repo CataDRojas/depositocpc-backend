@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: depositocpc-postgres
+    environment:
+      POSTGRES_DB: depositocpc
+      POSTGRES_USER: depositocpc_user
+      POSTGRES_PASSWORD: changeme_local
+    ports:
+      # Puerto 5433 en el host para no chocar con un Postgres local ya instalado
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
