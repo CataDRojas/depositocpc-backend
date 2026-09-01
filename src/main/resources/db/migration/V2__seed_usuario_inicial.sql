@@ -3,12 +3,14 @@
 -- Contraseña de desarrollo: Admin123!  (cambiar tras el primer uso; es solo local).
 -- Para generar un hash nuevo ejecutar:
 --   mvn test -Dtest=GeneradorHashBcryptTest
-INSERT INTO usuario (id, email, password_hash, rol, activo, creado_en)
+INSERT INTO usuario (id, email, password_hash, nombre, apellido, rol, activo, creado_en)
 VALUES (
     gen_random_uuid(),
     'admin@empresa.cl',
     '$2a$10$oj.7SUL3BVzeRThgvAVgiu2UNiOfBl6VCJNiUQWgBeKyStj8VChUu',
-    'OPERADOR',
+    'Catalina',
+    'Díaz',
+    'ADMIN',
     true,
     now()
 );

@@ -61,12 +61,19 @@ public class SecurityConfig {
                                 "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated())
                 // Sin token válido responde 401 (no 403) para indicar claramente que falta autenticarse
-                .exceptionHandling(ex -> ex.authenticationEntryPoint((peticion, respuesta, errorAuth) -> {
-                    respuesta.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                    respuesta.setContentType("application/json;charset=UTF-8");
-                    respuesta.getWriter().write(
-                            "{\"codigo\":\"NO_AUTENTICADO\",\"mensaje\":\"Se requiere autenticación para acceder a este recurso\",\"campo\":null}");
-                }))
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint((peticion, respuesta, errorAuth) -> {
+                            respuesta.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                            respuesta.setContentType("application/json;charset=UTF-8");
+                            respuesta.getWriter().write(
+                                    "{\"codigo\":\"NO_AUTENTICADO\",\"mensaje\":\"Se requiere autenticación para acceder a este recurso\",\"campo\":null}");
+                        })
+                        .accessDeniedHandler((peticion, respuesta, accesoDenegado) -> {
+                            respuesta.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                            respuesta.setContentType("application/json;charset=UTF-8");
+                            respuesta.getWriter().write(
+                                    "{\"codigo\":\"ACCESO_DENEGADO\",\"mensaje\":\"No tienes permisos para acceder a este recurso\",\"campo\":null}");
+                        }))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

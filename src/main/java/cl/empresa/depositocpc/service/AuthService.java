@@ -32,12 +32,15 @@ public class AuthService {
         UserDetails usuarioDetails = usuarioDetailsService.loadUserByUsername(usuario.getEmail());
 
         String token = jwtService.generarToken(usuarioDetails);
-        return new LoginResponseDTO(token, "Bearer", usuario.getEmail(), usuario.getRol());
+        return new LoginResponseDTO(token, "Bearer", usuario.getEmail(),
+                usuario.getNombre(), usuario.getApellido(), usuario.getRol());
     }
 
     public UsuarioResponseDTO obtenerPerfil(String email) {
         Usuario usuario = usuarioRepository.findByEmailIgnoreCase(email)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Usuario", email));
-        return new UsuarioResponseDTO(usuario.getId(), usuario.getEmail(), usuario.getRol());
+        return new UsuarioResponseDTO(usuario.getId(), usuario.getEmail(),
+                usuario.getNombre(), usuario.getApellido(),
+                usuario.getRol(), usuario.getActivo());
     }
 }

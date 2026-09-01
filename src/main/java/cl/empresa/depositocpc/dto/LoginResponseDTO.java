@@ -6,6 +6,8 @@ public record LoginResponseDTO(
         String accessToken,
         String tokenType,
         String email,
+        String nombre,
+        String apellido,
         RolUsuario rol
 ) {
 }

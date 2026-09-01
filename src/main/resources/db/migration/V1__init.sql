@@ -4,6 +4,8 @@ CREATE TABLE usuario (
     id            UUID PRIMARY KEY,
     email         VARCHAR(255) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
+    nombre        VARCHAR(100) NOT NULL,
+    apellido      VARCHAR(100) NOT NULL,
     rol           VARCHAR(20)  NOT NULL,
     activo        BOOLEAN      NOT NULL DEFAULT TRUE,
     creado_en     TIMESTAMPTZ  NOT NULL DEFAULT now(),

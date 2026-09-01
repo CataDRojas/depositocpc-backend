@@ -5,14 +5,14 @@ import cl.empresa.depositocpc.enums.RolUsuario;
 import java.util.UUID;
 
 /**
- * Datos de un usuario para listados y respuestas.
+ * Respuesta al crear un usuario. Inuye la contraseña generada una sola vez.
  */
-public record UsuarioResponseDTO(
+public record CrearUsuarioResponseDTO(
         UUID id,
         String email,
         String nombre,
         String apellido,
         RolUsuario rol,
-        boolean activo
+        String passwordGenerada
 ) {
 }
