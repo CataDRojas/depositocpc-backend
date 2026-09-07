@@ -28,7 +28,7 @@ En IntelliJ: Run → Edit Configurations → Active profiles: `local` (o VM opti
 
 Se crea con la migración `V2__seed_usuario_inicial.sql`:
 
-- Email: `admin@empresa.cl`
+- Email: `admin@cpc.cl`
 - Contraseña: `Admin123!` — **solo desarrollo local**, cambiar tras el primer uso real.
 - En el repo solo vive el hash BCrypt, nunca la contraseña.
 
@@ -60,8 +60,11 @@ Definidas en `application-prod.yml`, nunca hardcodeadas:
 ```
 V1__init.sql                  # tablas usuario, ubicacion, contenedor, movimiento + índices
 V2__seed_usuario_inicial.sql  # usuario inicial con hash BCrypt
-V3__seed_ubicaciones_demo.sql # ubicaciones demo para desarrollo
+V3__cambios_fase2.sql         # esquema fase 2: bahía + nivel/tamaño (sin datos demo)
 ```
+
+Las migraciones no crean ubicaciones: el sistema arranca desde cero y cada
+organización agrega sus posiciones desde el módulo "Ubicaciones".
 
 ## Decisiones de diseño relevantes
 

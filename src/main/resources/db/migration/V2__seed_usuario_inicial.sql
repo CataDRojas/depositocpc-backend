@@ -6,10 +6,10 @@
 INSERT INTO usuario (id, email, password_hash, nombre, apellido, rol, activo, creado_en)
 VALUES (
     gen_random_uuid(),
-    'admin@empresa.cl',
+    'admin@cpc.cl',
     '$2a$10$oj.7SUL3BVzeRThgvAVgiu2UNiOfBl6VCJNiUQWgBeKyStj8VChUu',
-    'Catalina',
-    'Díaz',
+    'Jorge',
+    'Rojas',
     'ADMIN',
     true,
     now()

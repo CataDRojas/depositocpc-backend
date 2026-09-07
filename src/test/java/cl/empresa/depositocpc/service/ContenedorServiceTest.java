@@ -48,7 +48,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class ContenedorServiceTest {
 
-    private static final String EMAIL_USUARIO = "admin@empresa.cl";
+    private static final String EMAIL_USUARIO = "admin@cpc.cl";
     private static final int ALTURA_MAXIMA = 3;
 
     @Mock
