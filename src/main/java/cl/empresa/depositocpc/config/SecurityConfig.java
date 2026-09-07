@@ -3,7 +3,7 @@ package cl.empresa.depositocpc.config;
 import cl.empresa.depositocpc.security.JwtAuthFilter;
 import cl.empresa.depositocpc.security.UsuarioDetailsService;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,23 +28,25 @@ import java.util.List;
  * Configuración de seguridad del MVP:
  * - Autenticación obligatoria con JWT (sin sesión).
  * - Solo /api/auth/login y Swagger son públicos.
- * - Sin autorización diferenciada por rol todavía: cualquier usuario
- *   autenticado tiene acceso a los endpoints de negocio.
+ * - /api/usuarios/** exige rol ADMIN (vía @PreAuthorize).
+ * - Los orígenes CORS se inyectan vía propiedad (variable CORS_ORIGINS en
+ *   producción, con fallback a localhost para desarrollo local).
  */
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class SecurityConfig {
-
-    private static final List<String> ORIGENES_PERMITIDOS = List.of(
-            "http://localhost:5173",
-            "http://localhost:5174",
-            "http://127.0.0.1:5173",
-            "http://127.0.0.1:5174"
-    );
 
     private final JwtAuthFilter jwtAuthFilter;
     private final UsuarioDetailsService usuarioDetailsService;
+    private final List<String> origenesPermitidos;
+
+    public SecurityConfig(JwtAuthFilter jwtAuthFilter,
+                          UsuarioDetailsService usuarioDetailsService,
+                          @Value("${cors.origenes-permitidos}") List<String> origenesPermitidos) {
+        this.jwtAuthFilter = jwtAuthFilter;
+        this.usuarioDetailsService = usuarioDetailsService;
+        this.origenesPermitidos = origenesPermitidos;
+    }
 
     @Bean
     public SecurityFilterChain cadenaFiltros(HttpSecurity http) throws Exception {
@@ -81,7 +83,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource fuenteCors() {
         CorsConfiguration configuracion = new CorsConfiguration();
-        configuracion.setAllowedOrigins(ORIGENES_PERMITIDOS);
+        configuracion.setAllowedOrigins(origenesPermitidos);
         configuracion.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuracion.setAllowedHeaders(List.of("*"));
         UrlBasedCorsConfigurationSource fuente = new UrlBasedCorsConfigurationSource();

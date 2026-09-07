@@ -54,6 +54,7 @@ Definidas en `application-prod.yml`, nunca hardcodeadas:
 | `DB_URL` | JDBC URL de Postgres |
 | `DB_USERNAME` / `DB_PASSWORD` | credenciales de BD |
 | `JWT_SECRET` | clave HMAC-SHA256 (mín. 32 bytes) |
+| `CORS_ORIGINS` | orígenes permitidos separados por coma (ej: `https://depositocpc-frontend.vercel.app`). Si no se define, se usan los de desarrollo local |
 
 ## Migraciones Flyway
 
